@@ -1,4 +1,4 @@
-#TERRAFORM-ACI WORKSHOP
+# TERRAFORM-ACI WORKSHOP
 
 ### Go to the terminal and run: 
 
@@ -10,7 +10,7 @@
 1.	Alpine distribution of Linux with Terraform binary installed 
 2.	ACI terraform provider and ACI Go client installed and built
 
-		git clone -b relation_test https://github.com/	ciscoecosystem/terraform-provider-aci.git
+		git clone -b relation_test https://github.com/ciscoecosystem/terraform-provider-aci.git
 		git clone -b relation_test https://github.com/ciscoecosystem/aci-go-client.git
 		apk add --no-cache build-base
 		cd $GOPATH/src/github.com/ciscoecosystem/terraform-provider-aci
@@ -54,21 +54,22 @@ eg: user1 will be "lab-user-1", user2 will be "lab-user-2"  and so on
 
 # LAB
 - 1. Create a Tenant
-	-	2. Create a VRF
-	-  3.	Create a Bridge Domain
-		-  4. Create a Subnet
-	-  5. Create a VMM Domain
-	-  6. Create a Filter
+	- 2. Create a VRF
+	- 3.	Create a Bridge Domain
+		- 4. Create a Subnet
+	- 5. Create a VMM Domain
+	- 6. Create a Filter
 		- 7. Create a Filter Entry
-	- 	8. Create a Contract
-		-  9. Create a Contract Subject and form a relationship to the filter  
-	-  10.	Create an Application Profile
-		- 	11.	Create EPGs (2 EPGs). 	Relate each EPG to a VMM Domain, BD create earlier and a Contract.
-	     	  
-### Variables
+	- 8. Create a Contract
+		- 9. Create a Contract Subject and form a relationship to the filter  
+	- 10.	Create an Application Profile
+		- 11.	Create EPGs (2 EPGs). 	Relate each EPG to a VMM Domain, BD create earlier and a Contract.
 
-	cd /go/src/github.com/ciscoecosystem/terraform-provider-aci/examples/cleur2019/aci_test
+		 
+	cd /go/src/github.com/ciscoecosystem/terraform-provider-aci/examples/cleur2019
 	rm -rf terraform.tfstate*
+
+### Variables
 
 All variables are defined in <em>variables.tf</em>
 
@@ -76,9 +77,13 @@ All variables are defined in <em>variables.tf</em>
 
 But you are encouraged to try it on your own. Copy-Paste is absoultely ACCEPTABLE</strong>
 
+
+
+
+### Task 0:
+
 Use Your favourite editor to create a file main.tf
 
-###Task 0:
 Initialize the provider.
 
 	provider "aci" {
@@ -88,8 +93,8 @@ Initialize the provider.
   		insecure = true
 		}
 
-###Task 1:
-####	Create a Tenant
+### Task 1:
+#### Create a Tenant
 A Tenant is a container for all network, security, troubleshooting and L4 – 7 service policies.   Tenant resources are isolated from each other, allowing management by different administrators. 
 
 Edit <em>variables.tf</em>
@@ -139,7 +144,7 @@ This is the state file that terraform uses on the subsequent plan and apply.
 	
 Now you have a hang of it. Let's march on
 
-###Task 2:
+### Task 2:
 #### Create a VRF
 Private networks (also called VRFs or contexts) are defined within a tenant to allow isolated and potentially overlapping IP address space
 
@@ -158,7 +163,7 @@ and then on success
 
 	terraform apply -parallelism=1
 	
-###Task 3:
+### Task 3:
 #### Create a Bridge Domain (BD):
 Within a private network, one or more bridge domains must be defined.
 
@@ -180,7 +185,7 @@ and then on success
 
 	terraform apply -parallelism=1
 
-###Task 4:
+### Task 4:
 #### Create a Subnet
 Subnet is a child object of a BD. You will have to pass the bd's (parents) DN (Distinguished Name)
 
@@ -191,6 +196,8 @@ Edit <em>variables.tf</em>
   		default = "{usernumber}.{usernumber}.{usernumber}.1/24" #input your usernumber
   		# eg: user1 : 1.1.1.1/24, user2: 2.2.2.1/24, user3: 3.3.3.1/24 
 	}
+
+Continue editing main.tf
 
 	resource "aci_subnet" "bd1_subnet" {
   		bridge_domain_dn = "${aci_bridge_domain.bd1.id}"
@@ -206,8 +213,8 @@ and then on success
 
 	terraform apply -parallelism=1
 
-###Task 5:
-####	Create a VMM DataSource
+### Task 5:
+#### Create a VMM DataSource
 
 Read the VMM Domain as datasource
 
@@ -225,7 +232,7 @@ and then on success
 
 	terraform apply -parallelism=1
 	
-###Task 6:
+### Task 6:
 #### Create a Filter
 A filter classifies a collection of network packet  attributes
 
@@ -250,7 +257,7 @@ and then on success
 
 	terraform apply -parallelism=1
 	
-###Task 7:
+### Task 7:
 #### Create a Filter entry
 Filter entry is a network packet  attributes. It selects a packets based on the attributes specified.
 
@@ -284,7 +291,7 @@ and then on success
 
 	terraform apply -parallelism=1
 
-###Task 8:
+### Task 8:
 #### Create a Contact
 Contract is a set of rules governing communication between EndPoint Groups
 
@@ -303,7 +310,7 @@ and then on success
 
 	terraform apply -parallelism=1
 	
-###Task 9:
+### Task 9:
 #### Create a Contact Subject
 Contract Subject sets the Permit/Deny, Qos policies of the Contract. Relationship needs to be created from the subject contract to filter entry.
 
@@ -323,7 +330,7 @@ and then on success
 
 	terraform apply -parallelism=1
 	
-###Task 10:
+### Task 10:
 #### Create an Application Profile
 
 Application Profile is a collection of end points and contract between them
@@ -343,7 +350,7 @@ and then on success
 
 	terraform apply -parallelism=1
 	
-###Task 10:
+###Task 11:
 #### Create 2 End Point Groups(EPGs). 	Relate each EPG to a VMM Domain, BD create and a Contract.
 
 End Points are devices which attach to the network either virtually or physically, 
