@@ -207,14 +207,14 @@ and then on success
 	terraform apply -parallelism=1
 
 ###Task 5:
-####	Create a VMM Domain
+####	Create a VMM DataSource
 
-VMM Domain creates a DVS
+Read the VMM Domain as datasource
 
-	resource "aci_vmm_domain" "vds" {
-  		provider_profile_dn = "${var.provider_profile_dn}"
-  		name                = "ESX0-leaf102"
-	}
+	data "aci_vmm_domain" "vds" {                          
+  		provider_profile_dn = "VMware"                       
+  		name                = "ESX0-leaf102"                 
+	} 
 
 
 On the console
@@ -373,7 +373,7 @@ EPG is a child object of an Application Profile. You will have to pass the Appli
   		application_profile_dn = "${aci_application_profile.app1.id}"
   		name                   = "epg1"
   		relation_fv_rs_bd      = "${aci_bridge_domain.bd1.name}"
-  		relation_fv_rs_dom_att = ["${aci_vmm_domain.vds.id}"]
+  		relation_fv_rs_dom_att = ["${data.aci_vmm_domain.vds.id}"] 
   		relation_fv_rs_cons    = ["${aci_contract.contract_epg1_epg2.name}"]
 	}
 
@@ -382,7 +382,7 @@ EPG is a child object of an Application Profile. You will have to pass the Appli
   		application_profile_dn = "${aci_application_profile.app1.id}"
   		name                   = "epg2"
   		relation_fv_rs_bd      = "${aci_bridge_domain.bd1.name}"
-  		relation_fv_rs_dom_att = ["${aci_vmm_domain.vds.id}"]
+  		relation_fv_rs_dom_att = ["${data.aci_vmm_domain.vds.id}"] 
   		relation_fv_rs_prov    = ["${aci_contract.contract_epg1_epg2.name}"]
   	}
   	
