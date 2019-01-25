@@ -3,15 +3,16 @@
 ### Go to the terminal and run: 
 
 	docker run -it --entrypoint /bin/bash hashicorp/terraform:full
-	cd /go/src/github.com/ciscoecosystem/terraform-provider-aci/examples/aci_test
+	mkdir -p /go/src/github.com/ciscoecosystem
+	cd /go/src/github.com/ciscoecosystem
 	
 
 ### What does this docker container have: 
 1.	Alpine distribution of Linux with Terraform binary installed 
 2.	ACI terraform provider and ACI Go client installed and built
 
-		git clone -b relation_test https://github.com/ciscoecosystem/terraform-provider-aci.git
-		git clone -b relation_test https://github.com/ciscoecosystem/aci-go-client.git
+		git clone  https://github.com/ciscoecosystem/terraform-provider-aci.git
+		git clone  https://github.com/ciscoecosystem/aci-go-client.git
 		apk add --no-cache build-base
 		cd $GOPATH/src/github.com/ciscoecosystem/terraform-provider-aci
 		make build
@@ -429,14 +430,14 @@ Modify <em>variable.tf</em> according to your vcenter environment
 
 #Resources:
 
-Terraform ACI provider: Use branch <strong>relation_test</strong>
+Terraform ACI provider: Use branch <strong>master</strong>
 <https://github.com/ciscoecosystem/terraform-provider-aci>
 
-ACI Go Client: Use branch <strong>relation_test</strong>
+ACI Go Client: Use branch <strong>master</strong>
 <https://github.com/ciscoecosystem/aci-go-client>
 
 Examples: Use branch <strong>relation_test</strong>
 
-<https://github.com/ciscoecosystem/terraform-provider-aci/tree/relation_test/examples>
+<https://github.com/ciscoecosystem/terraform-provider-aci/tree/master/examples>
 
 
