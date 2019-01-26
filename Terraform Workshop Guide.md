@@ -3,8 +3,7 @@
 ### Go to the terminal and run: 
 
 	docker run -it --entrypoint /bin/bash devarshishah3/terraformwkshp:latest
-	mkdir -p /go/src/github.com/ciscoecosystem
-	cd /go/src/github.com/ciscoecosystem
+	cd $GOPATH/src/github.com/ciscoecosystem/terraform-provider-aci
 	
 
 ### What does this docker container have: 
