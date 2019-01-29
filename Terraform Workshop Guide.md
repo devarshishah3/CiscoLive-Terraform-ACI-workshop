@@ -91,7 +91,7 @@ Initialize the provider.
   		password = "CiscoLive2019"
   		url      = "10.23.248.85"
   		insecure = true
-		}
+	}
 
 ### Task 1:
 #### Create a Tenant
