@@ -40,7 +40,7 @@
 	}
 
 ###	Credentials
-	APIC: http://10.23.248.85
+	APIC: https://173.36.218.149
 
 	username: lab-user-{usernumber}
 
@@ -65,9 +65,13 @@ eg: user1 will be "lab-user-1", user2 will be "lab-user-2"  and so on
 	- 10.	Create an Application Profile
 		- 11.	Create EPGs (2 EPGs). 	Relate each EPG to a VMM Domain, BD create earlier and a Contract.
 
+
+
+
 		 
 	cd /go/src/github.com/ciscoecosystem/terraform-provider-aci/examples/cleur2019
 	rm -rf terraform.tfstate*
+	cp /go/src/github.com/ciscoecosystem/terraform-provider-aci/examples/aci_test/admin.key .
 
 ### Variables
 
@@ -89,8 +93,10 @@ Initialize the provider.
 	provider "aci" {
   		username = "lab-user-{usernumber}" #input user number
   		password = "CiscoLive2019"
-  		url      = "http://10.23.248.85"
+  		url      = "https://173.36.218.149/"
   		insecure = true
+		private_key = "./admin.key"
+        	cert_name   = "tf-test"
 	}
 
 ### Task 1:
@@ -220,7 +226,7 @@ Read the VMM Domain as datasource
 
 	data "aci_vmm_domain" "vds" {                          
   		provider_profile_dn = "VMware"                       
-  		name                = "ESX0-leaf103"                 
+  		name                = "Pod1"                 
 	} 
 
 
