@@ -87,9 +87,9 @@ Use Your favourite editor to create a file main.tf
 Initialize the provider.
 
 	provider "aci" {
-  		username = "lab-user{usernumber}" #input user number
+  		username = "lab-user-{usernumber}" #input user number
   		password = "CiscoLive2019"
-  		url      = "10.23.248.85"
+  		url      = "http://10.23.248.85"
   		insecure = true
 	}
 
@@ -175,7 +175,7 @@ BD is a child object of a tenant. You will have to pass the tenant's (parents) D
   		tenant_dn          = "${aci_tenant.terraform_ten.id}"
   		relation_fv_rs_ctx = "${aci_vrf.vrf1.name}"
   		name               = "bd-{usernumber}" #input your usernumber
-}
+	}
 
 On the console
 	
@@ -220,7 +220,7 @@ Read the VMM Domain as datasource
 
 	data "aci_vmm_domain" "vds" {                          
   		provider_profile_dn = "VMware"                       
-  		name                = "ESX0-leaf102"                 
+  		name                = "ESX0-leaf103"                 
 	} 
 
 
