@@ -40,7 +40,7 @@
 	}
 
 ###	Credentials
-	APIC: https://173.36.218.149
+	APIC: https://3.217.27.1
 
 	username: lab-user-{usernumber}
 
