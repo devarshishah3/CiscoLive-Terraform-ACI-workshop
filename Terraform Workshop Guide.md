@@ -92,11 +92,11 @@ Initialize the provider.
 
 	provider "aci" {
   		username = "lab-user-{usernumber}" #input user number
-  		password = "CiscoLive2019"
-  		url      = "https://173.36.218.149/"
+  		#password = "CiscoLive2019"
+  		url      = "https://173.36.219.190"
   		insecure = true
-		private_key = "./admin.key"
-        	cert_name   = "tf-test"
+		private_key = "admin-509.key"
+        	cert_name   = "admin-509-cert"
 	}
 
 ### Task 1:
@@ -226,7 +226,7 @@ Read the VMM Domain as datasource
 
 	data "aci_vmm_domain" "vds" {                          
   		provider_profile_dn = "VMware"                       
-  		name                = "Pod1"                 
+  		name                = "VMware-VMM"                 
 	} 
 
 
