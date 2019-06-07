@@ -69,18 +69,11 @@ eg: user1 will be "lab-user-1", user2 will be "lab-user-2"  and so on
 
 
 		 
-	cd /go/src/github.com/ciscoecosystem/terraform-provider-aci/examples/cleur2019
-	rm -rf terraform.tfstate*
-	cp /go/src/github.com/ciscoecosystem/terraform-provider-aci/examples/aci_test/admin.key .
+cd /go/src/github.com/ciscoecosystem/terraform-provider-aci/examples/clus
 
 ### Variables
 
 All variables are defined in <em>variables.tf</em>
-
-<strong>Solution is available in main.tf.bkp and vcentre.tf.bkp. 
-
-But you are encouraged to try it on your own. Copy-Paste is absoultely ACCEPTABLE</strong>
-
 
 
 
