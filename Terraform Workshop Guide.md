@@ -434,8 +434,6 @@ Terraform ACI provider: Use branch <strong>master</strong>
 ACI Go Client: Use branch <strong>master</strong>
 <https://github.com/ciscoecosystem/aci-go-client>
 
-Examples: Use branch <strong>relation_test</strong>
 
-<https://github.com/ciscoecosystem/terraform-provider-aci/tree/master/examples>
 
 
