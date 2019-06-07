@@ -2,8 +2,8 @@
 
 ### Go to the terminal and run: 
 
-	docker run -it --entrypoint /bin/bash devarshishah3/terraformwkshp:v6
-	cd $GOPATH/src/github.com/ciscoecosystem/terraform-provider-aci/examples/cleur2019
+	docker run -it --entrypoint /bin/bash devarshishah3/terraformwkshp:v8
+	cd $GOPATH/src/github.com/ciscoecosystem/terraform-provider-aci/examples/clus
 	
 
 ### What does this docker container have: 
