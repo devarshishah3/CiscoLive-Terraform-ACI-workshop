@@ -3,7 +3,10 @@
 ### Go to the terminal and run: 
 
 	docker run -it --entrypoint /bin/bash devarshishah3/terraformwkshp:v8
-	cd $GOPATH/src/github.com/ciscoecosystem/terraform-provider-aci/examples/clus
+	cd $GOPATH/src/github.com/ciscoecosystem/terraform-provider-aci/examples/
+	mkdir clus-apic
+	cd clus-apic
+	cp ../clus/admin-509.key .
 	
 
 ### What does this docker container have: 
@@ -349,7 +352,7 @@ and then on success
 
 	terraform apply -parallelism=1
 	
-###Task 11:
+### Task 11:
 #### Create 2 End Point Groups(EPGs). 	Relate each EPG to a VMM Domain, BD create and a Contract.
 
 End Points are devices which attach to the network either virtually or physically, 
