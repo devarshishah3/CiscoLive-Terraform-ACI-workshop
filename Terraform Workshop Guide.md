@@ -2,7 +2,7 @@
 
 ### Go to the terminal and run: 
 
-	docker run -it --entrypoint /bin/bash devarshishah3/terraformwkshp:v8
+	docker run -it --entrypoint /bin/bash devarshishah3/terraformwkshp:v9
 	cd $GOPATH/src/github.com/ciscoecosystem/terraform-provider-aci/examples/
 	mkdir clus-apic
 	cd clus-apic
@@ -11,8 +11,10 @@
 
 ### What does this docker container have: 
 1.	Alpine distribution of Linux with Terraform binary installed 
-2.	ACI terraform provider and ACI Go client installed and built
+2.	ACI terraform provider and ACI Go client installed and built as a part of Terraform 3rd party repo
 
+		https://github.com/terraform-providers/terraform-provider-aci
+		or you can 
 		git clone  https://github.com/ciscoecosystem/terraform-provider-aci.git
 		git clone  https://github.com/ciscoecosystem/aci-go-client.git
 		apk add --no-cache build-base
@@ -88,7 +90,11 @@ With vi:
 
 	vi main.tf
 
+
+
 Initialize the provider.
+
+Press "i" to start editing
 
 	provider "aci" {
   		username = "lab-user-{usernumber}" #input user number
@@ -113,6 +119,7 @@ With vi:
 	vi variables.tf
 
 Edit <em>variables.tf</em>
+Press "i" to start editing
 
 	variable "tenant_name" {
   		default = "tenant-user-{usernumber}" #Please enter the correct usernumber
@@ -126,6 +133,7 @@ With vi:
 
 	vi main.tf
 Continue editing <em>main.tf</em>
+Press "i" to start editing
 
 	resource "aci_tenant" "terraform_ten" {
   		name = "${var.tenant_name}"
@@ -182,6 +190,7 @@ With vi:
 	vi main.tf
 	
 Continue editing <em>main.tf</em>
+Press "i" to start editing
 
 	resource "aci_vrf" "vrf1" {
   		tenant_dn = "${aci_tenant.terraform_ten.id}"
@@ -210,6 +219,7 @@ With vi:
 	vi main.tf
 
 Continue editing main.tf
+Press "i" to start editing
 
 	resource "aci_bridge_domain" "bd1" {
   		tenant_dn          = "${aci_tenant.terraform_ten.id}"
@@ -236,6 +246,7 @@ With vi:
 
 	vi variables.tf
 Edit <em>variables.tf</em>
+Press "i" to start editing
 
 	variable "bd_subnet" {
   		type    = "string"
@@ -250,6 +261,7 @@ With vi:
 
 	vi main.tf
 Continue editing main.tf
+Press "i" to start editing
 
 	resource "aci_subnet" "bd1_subnet" {
   		bridge_domain_dn = "${aci_bridge_domain.bd1.id}"
@@ -276,6 +288,7 @@ With vi:
 
 	vi main.tf
 Continue editing main.tf
+Press "i" to start editing
 
 	data "aci_vmm_domain" "vds" {                          
   		provider_profile_dn = "uni/vmmp-VMware"                       
@@ -307,6 +320,7 @@ With vi:
 	vi main.tf
 	
 Continue editing main.tf
+Press "i" to start editing
 
 	resource "aci_filter" "allow_https" {
   		tenant_dn = "${aci_tenant.terraform_ten.id}"
@@ -341,6 +355,7 @@ With vi:
 	vi main.tf
 
 Continue editing main.tf
+Press "i" to start editing
 
 	resource "aci_filter_entry" "https" {
   		name        = "https"
@@ -382,7 +397,7 @@ With vi:
 	vi main.tf
 	
 Continue editing main.tf
-
+Press "i" to start editing
 
 	resource "aci_contract" "contract_epg1_epg2" {
   		tenant_dn = "${aci_tenant.terraform_ten.id}"
@@ -411,7 +426,8 @@ With vi:
 	vi main.tf
 	
 Continue editing main.tf
-  
+Press "i" to start editing
+
   	resource "aci_contract_subject" "Web_subject1" {
   		contract_dn                  = "${aci_contract.contract_epg1_epg2.id}"
   		name                         = "Subject"
@@ -441,6 +457,7 @@ With vi:
 	vi main.tf
 	
 Continue editing main.tf
+Press "i" to start editing
 
 	resource "aci_application_profile" "app1" {
   		tenant_dn = "${aci_tenant.terraform_ten.id}"
@@ -489,6 +506,7 @@ With vi:
 	vi main.tf
 	
 Continue editing main.tf
+Press "i" to start editing
 
 	resource "aci_application_epg" "epg1" {
   		application_profile_dn = "${aci_application_profile.app1.id}"
