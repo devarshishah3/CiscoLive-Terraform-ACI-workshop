@@ -84,6 +84,10 @@ All variables are defined in <em>variables.tf</em>
 
 Use Your favourite editor to create a file main.tf
 
+With vi:  
+
+	vi main.tf
+
 Initialize the provider.
 
 	provider "aci" {
@@ -95,21 +99,42 @@ Initialize the provider.
         	cert_name   = "admin-509-cert"
 	}
 
+To Save and close the file:
+press ESC 
+	
+	:wq
+
+
 ### Task 1:
 #### Create a Tenant
 A Tenant is a container for all network, security, troubleshooting and L4 – 7 service policies.   Tenant resources are isolated from each other, allowing management by different administrators. 
+With vi:  
+
+	vi variables.tf
 
 Edit <em>variables.tf</em>
 
 	variable "tenant_name" {
   		default = "tenant-user-{usernumber}" #Please enter the correct usernumber
 	}
+To Save and close the file:
+press ESC 
+	
+	:wq
+	
+With vi:  
+
+	vi main.tf
 Continue editing <em>main.tf</em>
 
 	resource "aci_tenant" "terraform_ten" {
   		name = "${var.tenant_name}"
 	} 
-
+To Save and close the file:
+press ESC 
+	
+	:wq
+	
 Lets run Terraform:
 
 You need to initialize terraform so it makes sure all the correct resources are avaialble. If the resource is not available, Terraform will download it.
@@ -152,12 +177,20 @@ Private networks (also called VRFs or contexts) are defined within a tenant to a
 
 VRF is a child object of a tenant. You will have to pass the tenant's (parents) DN (Distinguished Name)
 
+With vi:  
+
+	vi main.tf
+	
 Continue editing <em>main.tf</em>
 
 	resource "aci_vrf" "vrf1" {
   		tenant_dn = "${aci_tenant.terraform_ten.id}"
   		name      = "vrf-{usernumber}"#input your usernumber
 	}
+To Save and close the file:
+press ESC 
+	
+	:wq
 On the console
 	
 	terraform plan -parallelism=1
@@ -172,13 +205,22 @@ Within a private network, one or more bridge domains must be defined.
 A bridge domain is a L2 forwarding construct within the fabric, used to constrain broadcast and multicast traffic
 
 BD is a child object of a tenant. You will have to pass the tenant's (parents) DN (Distinguished Name)
+With vi:  
+
+	vi main.tf
+
+Continue editing main.tf
 
 	resource "aci_bridge_domain" "bd1" {
   		tenant_dn          = "${aci_tenant.terraform_ten.id}"
   		relation_fv_rs_ctx = "${aci_vrf.vrf1.name}"
   		name               = "bd-{usernumber}" #input your usernumber
 	}
-
+To Save and close the file:
+press ESC 
+	
+	:wq
+	
 On the console
 	
 	terraform plan -parallelism=1
@@ -190,7 +232,9 @@ and then on success
 ### Task 4:
 #### Create a Subnet
 Subnet is a child object of a BD. You will have to pass the bd's (parents) DN (Distinguished Name)
+With vi:  
 
+	vi variables.tf
 Edit <em>variables.tf</em>
 
 	variable "bd_subnet" {
@@ -198,7 +242,13 @@ Edit <em>variables.tf</em>
   		default = "{usernumber}.{usernumber}.{usernumber}.1/24" #input your usernumber
   		# eg: user1 : 1.1.1.1/24, user2: 2.2.2.1/24, user3: 3.3.3.1/24 
 	}
+To Save and close the file:
+press ESC 
+	
+	:wq
+With vi:  
 
+	vi main.tf
 Continue editing main.tf
 
 	resource "aci_subnet" "bd1_subnet" {
@@ -206,7 +256,10 @@ Continue editing main.tf
   		name             = "Subnet"
   		ip               = "${var.bd_subnet}"
   	}
-
+To Save and close the file:
+press ESC 
+	
+	:wq
 On the console
 	
 	terraform plan -parallelism=1
@@ -219,13 +272,20 @@ and then on success
 #### Create a VMM DataSource
 
 Read the VMM Domain as datasource
+With vi:  
+
+	vi main.tf
+Continue editing main.tf
 
 	data "aci_vmm_domain" "vds" {                          
   		provider_profile_dn = "uni/vmmp-VMware"                       
   		name                = "VMware-VMM"                 
 	} 
 
-
+To Save and close the file:
+press ESC 
+	
+	:wq
 On the console
 	
 	terraform plan -parallelism=1
@@ -242,6 +302,12 @@ Filter is a child object of a tenant. You will have to pass the tenant's (parent
 
 Create 2 filters. One related to ICMP and the second related to https
 
+With vi:  
+
+	vi main.tf
+	
+Continue editing main.tf
+
 	resource "aci_filter" "allow_https" {
   		tenant_dn = "${aci_tenant.terraform_ten.id}"
   		name      = "allow_https"
@@ -250,7 +316,10 @@ Create 2 filters. One related to ICMP and the second related to https
   		tenant_dn = "${aci_tenant.terraform_ten.id}"
   		name      = "allow_icmp"
 	}
+To Save and close the file:
+press ESC 
 	
+	:wq	
 On the console
 	
 	terraform plan -parallelism=1
@@ -266,6 +335,12 @@ Filter entry is a network packet  attributes. It selects a packets based on the 
 Create a filter entry for https and icmp
 
 Filter Entry is a child object of a Filter. You will have to pass the Filter's (parents) DN (Distinguished Name)
+
+With vi:  
+
+	vi main.tf
+
+Continue editing main.tf
 
 	resource "aci_filter_entry" "https" {
   		name        = "https"
@@ -284,7 +359,10 @@ Filter Entry is a child object of a Filter. You will have to pass the Filter's (
   		prot        = "icmp"
   		stateful    = "yes"
 	}
+To Save and close the file:
+press ESC 
 	
+	:wq	
 On the console
 	
 	terraform plan -parallelism=1
@@ -299,11 +377,21 @@ Contract is a set of rules governing communication between EndPoint Groups
 
 Contract is a child object of a tenant. You will have to pass the tenant's (parents) DN (Distinguished Name)
 
+With vi:  
+
+	vi main.tf
+	
+Continue editing main.tf
+
+
 	resource "aci_contract" "contract_epg1_epg2" {
   		tenant_dn = "${aci_tenant.terraform_ten.id}"
   		name      = "Web"
 	}
+To Save and close the file:
+press ESC 
 	
+	:wq	
 On the console
 	
 	terraform plan -parallelism=1
@@ -317,13 +405,22 @@ and then on success
 Contract Subject sets the Permit/Deny, Qos policies of the Contract. Relationship needs to be created from the subject contract to filter entry.
 
 Contract Subject is a child object of a Contract. You will have to pass the Contract's (parents) DN (Distinguished Name)
+
+With vi:  
+
+	vi main.tf
+	
+Continue editing main.tf
   
   	resource "aci_contract_subject" "Web_subject1" {
   		contract_dn                  = "${aci_contract.contract_epg1_epg2.id}"
   		name                         = "Subject"
   		relation_vz_rs_subj_filt_att = ["${aci_filter.allow_https.name}","${aci_filter.allow_icmp.name}"]
 	}
-  
+To Save and close the file:
+press ESC 
+	
+	:wq 
  On the console
 	
 	terraform plan -parallelism=1
@@ -339,11 +436,20 @@ Application Profile is a collection of end points and contract between them
 
 Application Profile is a child object of a tenant. You will have to pass the tenant's (parents) DN (Distinguished Name)
 
+With vi:  
+
+	vi main.tf
+	
+Continue editing main.tf
+
 	resource "aci_application_profile" "app1" {
   		tenant_dn = "${aci_tenant.terraform_ten.id}"
   		name      = "app1"
 	}
+To Save and close the file:
+press ESC 
 	
+	:wq	
 On the console
 	
 	terraform plan -parallelism=1
@@ -378,6 +484,12 @@ A consumed contract (outbound rule) and a provided contract (inbound rule) must 
 
 EPG is a child object of an Application Profile. You will have to pass the Application Profiles's (parents) DN (Distinguished Name)
 
+With vi:  
+
+	vi main.tf
+	
+Continue editing main.tf
+
 	resource "aci_application_epg" "epg1" {
   		application_profile_dn = "${aci_application_profile.app1.id}"
   		name                   = "epg1"
@@ -394,7 +506,10 @@ EPG is a child object of an Application Profile. You will have to pass the Appli
   		relation_fv_rs_dom_att = ["${data.aci_vmm_domain.vds.id}"] 
   		relation_fv_rs_prov    = ["${aci_contract.contract_epg1_epg2.name}"]
   	}
-  	
+To Save and close the file:
+press ESC 
+	
+	:wq 	
  On the console
 	
 	terraform plan -parallelism=1
